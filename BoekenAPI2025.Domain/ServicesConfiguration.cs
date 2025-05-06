@@ -8,10 +8,6 @@ namespace BoekenAPI2025.Domain
         public static void RegisterServices(IServiceCollection services, string connectionString)
         {
             services.AddSqlite<Boeken2025Context>(connectionString);
-
-
-
-
         }
     }
 }
