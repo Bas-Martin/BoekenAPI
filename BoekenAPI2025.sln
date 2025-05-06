@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoekenAPI2025.Domain", "Boe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoekenAPI2025.Client", "BoekenAPI2025.Client\BoekenAPI2025.Client.csproj", "{0B1E76DA-D440-43FE-8722-5EE09049E2FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoekenAPI2025.Shared", "BoekenAPI2025.Shared\BoekenAPI2025.Shared.csproj", "{99B81139-0CCB-41CE-AB39-69BCD1E1D183}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0B1E76DA-D440-43FE-8722-5EE09049E2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B1E76DA-D440-43FE-8722-5EE09049E2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B1E76DA-D440-43FE-8722-5EE09049E2FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99B81139-0CCB-41CE-AB39-69BCD1E1D183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B81139-0CCB-41CE-AB39-69BCD1E1D183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B81139-0CCB-41CE-AB39-69BCD1E1D183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B81139-0CCB-41CE-AB39-69BCD1E1D183}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

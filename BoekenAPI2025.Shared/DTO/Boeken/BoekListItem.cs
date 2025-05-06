@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BoekenAPI2025.Application.DTO.Boeken
+namespace BoekenAPI2025.Shared.DTO.Boeken
 {
     public class BoekListItem
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace BoekenAPI2025.Application.DTO.Boeken
+namespace BoekenAPI2025.Shared.DTO.Boeken
 {
     public class FullBoek
     {

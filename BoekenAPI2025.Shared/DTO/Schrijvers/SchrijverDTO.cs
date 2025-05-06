@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace BoekenAPI2025.Application.DTO.Schrijvers
+namespace BoekenAPI2025.Shared.DTO.Schrijvers
 {
-    public class Schrijver
+    public class SchrijverDTO
     {
         [Required]
         [JsonPropertyName("id")]

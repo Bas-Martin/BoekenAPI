@@ -6,10 +6,13 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BoekenAPI2025.Application.DTO.Boeken
+namespace BoekenAPI2025.Shared.DTO.Boeken
 {
-    public class CreateBoek
+    public class UpdateBoek
     {
+        [Required]
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
         [Required]
         [StringLength(100, MinimumLength = 3)]
         [JsonPropertyName("titel")]

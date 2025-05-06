@@ -1,5 +1,5 @@
-﻿using BoekenAPI2025.API.Repositories;
-using BoekenAPI2025.Application.DTO.Schrijvers;
+﻿using BoekenAPI2025.Application.Interfaces;
+using BoekenAPI2025.Shared.DTO.Schrijvers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BoekenAPI2025.API.Controllers
@@ -8,34 +8,34 @@ namespace BoekenAPI2025.API.Controllers
     [ApiController]
     public class SchrijversController : ControllerBase
     {
-        private readonly SchrijverRepository schrijverRepository;
+        private readonly ISchrijverService schrijverService;
 
-        public SchrijversController(SchrijverRepository schrijverRepository)
+        public SchrijversController(ISchrijverService schrijverService)
         {
-            this.schrijverRepository = schrijverRepository;
+            this.schrijverService = schrijverService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<SchrijverItem>> GeefSchrijvers()
         {
-            return Ok(schrijverRepository.GeefAlleSchrijvers());
+            return Ok(schrijverService.GeefAlleSchrijvers());
         }
         [HttpGet("search/{naam}")]
         public ActionResult<IEnumerable<SchrijverItem>> ZoekSchrijvers(string naam)
         {
-            return Ok(schrijverRepository.ZoekSchrijvers(naam));
+            return Ok(schrijverService.ZoekSchrijvers(naam));
         }
         [HttpGet("{id}")]
-        public ActionResult<Schrijver> GeefSchrijver(int id)
+        public ActionResult<SchrijverDTO> GeefSchrijver(int id)
         {
-            var retVal = schrijverRepository.GeefSchrijverById(id);
+            var retVal = schrijverService.GeefSchrijverById(id);
             return retVal != null ? Ok(retVal) : NotFound();
         }
 
         [HttpPost]
         public ActionResult<int> MaakSchrijver(CreateSchrijver schrijver)
         {
-            return schrijverRepository.MaakSchrijver(schrijver);
+            return schrijverService.MaakSchrijver(schrijver);
         }
     }
 }

@@ -6,9 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\BoekenAPI2025.Domain\BoekenAPI2025.Domain.csproj" />
-    <ProjectReference Include="..\BoekenAPI2025.Shared\BoekenAPI2025.Shared.csproj" />
-  </ItemGroup>
-
 </Project>
