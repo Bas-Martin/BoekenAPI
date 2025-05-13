@@ -17,31 +17,31 @@ public class BoekenController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<BoekListItem>> GeefBoeken()
+    public async Task<IActionResult> GeefBoeken()
     {
-        return Ok(boekenService.GeefAlleBoeken());
+        return Ok(await boekenService.GeefAlleBoekenAsync());
     }
 
     [HttpGet("search/{titel}")]
-    public ActionResult<IEnumerable<BoekListItem>> ZoekBoeken(string titel)
+    public async Task<IActionResult> ZoekBoeken(string titel)
     {
-        return Ok(boekenService.ZoekBoeken(titel));
+        return Ok(await boekenService.ZoekBoekenAsync(titel));
     }
     [HttpGet("{id}")]
-    public ActionResult<FullBoek> GeefBoek(int id)
+    public async Task<IActionResult> GeefBoek(int id)
     {
-        FullBoek? retVal = boekenService.GeefBoek(id);
+        FullBoek? retVal = await boekenService.GeefBoekAsync(id);
         return retVal != null ? Ok(retVal) : NotFound();
     }
 
     [HttpPost]
-    public ActionResult<int> MaakBoek(CreateBoek boek)
+    public async Task<IActionResult> MaakBoek(CreateBoek boek)
     {
         try
         {
-            var id = boekenService.CreateBoek(boek);
+            var id = await boekenService.CreateBoekAsync(boek);
 
-            return id;
+            return Ok(id);
         }
         catch (Exception ex)
         {
@@ -51,11 +51,11 @@ public class BoekenController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public ActionResult UpdateBoek(int id, UpdateBoek boek)
+    public async Task<IActionResult> UpdateBoek(int id, UpdateBoek boek)
     {
         try
         {
-            boekenService.UpdateBoek(id, boek);
+            await boekenService.UpdateBoekAsync(id, boek);
             return Ok();
         }
         catch (ValidationException ex)
@@ -69,11 +69,11 @@ public class BoekenController : ControllerBase
     }
 
     [HttpDelete("id")]
-    public ActionResult DeleteBoek(int id)
+    public async Task<IActionResult> DeleteBoek(int id)
     {
         try
         {
-            boekenService.DeleteBoek(id);
+            await boekenService.DeleteBoekAsync(id);
             return Ok();
         }
         catch (Exception ex)

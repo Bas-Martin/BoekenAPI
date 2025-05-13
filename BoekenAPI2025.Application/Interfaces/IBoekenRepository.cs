@@ -4,10 +4,10 @@ namespace BoekenAPI2025.Application.Interfaces;
 
 public interface IBoekenRepository
 {
-    IEnumerable<BoekListItem> GeefAlleBoeken();
-    IEnumerable<BoekListItem> ZoekBoeken(string titel);
-    FullBoek? GeefBoek(int id);
-    int CreateBoek(CreateBoek boek);
-    void UpdateBoek(int id, UpdateBoek boek);
-    void DeleteBoek(int id);
+    Task<IEnumerable<BoekListItem>> GeefAlleBoekenAsync();
+    Task<IEnumerable<BoekListItem>> ZoekBoekenAsync(string titel);
+    Task<FullBoek?> GeefBoek(int id);
+    Task<int> CreateBoekAsync(CreateBoek boek);
+    Task UpdateBoekAsync(int id, UpdateBoek boek);
+    Task DeleteBoekAsync(int id);
 }

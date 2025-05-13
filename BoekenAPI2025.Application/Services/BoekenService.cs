@@ -12,33 +12,33 @@ public class BoekenService : IBoekenService
         this.boekenRepository = boekenRepository;
     }
 
-    public int CreateBoek(CreateBoek boek)
+    public async Task<int> CreateBoekAsync(CreateBoek boek)
     {
-        return boekenRepository.CreateBoek(boek);
+        return await boekenRepository.CreateBoekAsync(boek);
     }
 
-    public void DeleteBoek(int id)
+    public async Task DeleteBoekAsync(int id)
     {
-        boekenRepository.DeleteBoek(id);
+        await boekenRepository.DeleteBoekAsync(id);
     }
 
-    public IEnumerable<BoekListItem> GeefAlleBoeken()
+    public async Task<IEnumerable<BoekListItem>> GeefAlleBoekenAsync()
     {
-        return boekenRepository.GeefAlleBoeken();
+        return await boekenRepository.GeefAlleBoekenAsync();
     }
 
-    public FullBoek? GeefBoek(int id)
+    public async Task<FullBoek?> GeefBoekAsync(int id)
     {
-        return boekenRepository.GeefBoek(id);
+        return await boekenRepository.GeefBoek(id);
     }
 
-    public void UpdateBoek(int id, UpdateBoek boek)
+    public async Task UpdateBoekAsync(int id, UpdateBoek boek)
     {
-        boekenRepository.UpdateBoek(id, boek);
+        await boekenRepository.UpdateBoekAsync(id, boek);
     }
 
-    public IEnumerable<BoekListItem> ZoekBoeken(string titel)
+    public async Task<IEnumerable<BoekListItem>> ZoekBoekenAsync(string titel)
     {
-        return boekenRepository.ZoekBoeken(titel);
+        return await boekenRepository.ZoekBoekenAsync(titel);
     }
 }

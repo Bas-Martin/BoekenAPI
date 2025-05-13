@@ -16,26 +16,26 @@ namespace BoekenAPI2025.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<SchrijverItem>> GeefSchrijvers()
+        public async Task<IActionResult> GeefSchrijvers()
         {
-            return Ok(schrijverService.GeefAlleSchrijvers());
+            return Ok(await schrijverService.GeefAlleSchrijversAsync());
         }
         [HttpGet("search/{naam}")]
-        public ActionResult<IEnumerable<SchrijverItem>> ZoekSchrijvers(string naam)
+        public async Task<IActionResult> ZoekSchrijvers(string naam)
         {
-            return Ok(schrijverService.ZoekSchrijvers(naam));
+            return Ok(await schrijverService.ZoekSchrijversAsync(naam));
         }
         [HttpGet("{id}")]
-        public ActionResult<SchrijverDTO> GeefSchrijver(int id)
+        public async Task<IActionResult> GeefSchrijver(int id)
         {
-            var retVal = schrijverService.GeefSchrijverById(id);
+            var retVal = await schrijverService.GeefSchrijverByIdAsync(id);
             return retVal != null ? Ok(retVal) : NotFound();
         }
 
         [HttpPost]
-        public ActionResult<int> MaakSchrijver(CreateSchrijver schrijver)
+        public async Task<IActionResult> MaakSchrijver(CreateSchrijver schrijver)
         {
-            return schrijverService.MaakSchrijver(schrijver);
+            return Ok(await schrijverService.MaakSchrijverAsync(schrijver));
         }
     }
 }

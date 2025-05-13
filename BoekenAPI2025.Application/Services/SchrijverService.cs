@@ -1,5 +1,6 @@
 ﻿using BoekenAPI2025.Application.Interfaces;
 using BoekenAPI2025.Shared.DTO.Schrijvers;
+using System.Threading.Tasks;
 
 namespace BoekenAPI2025.Application.Services;
 
@@ -11,23 +12,23 @@ public class SchrijverService : ISchrijverService
         this.schrijverRepository = schrijverRepository;
     }
 
-    public IEnumerable<SchrijverItem> GeefAlleSchrijvers()
+    public async Task<IEnumerable<SchrijverItem>> GeefAlleSchrijversAsync()
     {
-        return schrijverRepository.GeefAlleSchrijvers();
+        return await schrijverRepository.GeefAlleSchrijversAsync();
     }
 
-    public SchrijverDTO? GeefSchrijverById(int id)
+    public async Task<SchrijverDTO?> GeefSchrijverByIdAsync(int id)
     {
-        return schrijverRepository.GeefSchrijverById(id);
+        return await schrijverRepository.GeefSchrijverByIdAsync(id);
     }
 
-    public int MaakSchrijver(CreateSchrijver schrijver)
+    public async Task<int> MaakSchrijverAsync(CreateSchrijver schrijver)
     {
-        return schrijverRepository.MaakSchrijver(schrijver);
+        return await schrijverRepository.MaakSchrijverAsync(schrijver);
     }
 
-    public IEnumerable<SchrijverItem> ZoekSchrijvers(string naam)
+    public async Task<IEnumerable<SchrijverItem>> ZoekSchrijversAsync(string naam)
     {
-        return schrijverRepository.ZoekSchrijvers(naam);
+        return await schrijverRepository.ZoekSchrijversAsync(naam);
     }
 }

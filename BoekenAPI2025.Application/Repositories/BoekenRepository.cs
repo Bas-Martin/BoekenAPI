@@ -16,40 +16,40 @@ public class BoekenRepository : IBoekenRepository
         this.boeken2025Context = boeken2025Context;
     }
 
-    public IEnumerable<BoekListItem> GeefAlleBoeken()
+    public async Task<IEnumerable<BoekListItem>> GeefAlleBoekenAsync()
     {
-        return boeken2025Context
+        return await boeken2025Context
             .Boeken
             .Select(static b => new BoekListItem
             {
                 ID = b.Id,
                 Titel = b.Titel,
                 Schrijver = b.Schrijver.Naam
-            }).ToList();
+            }).ToListAsync();
     }
 
-    public IEnumerable<BoekListItem> ZoekBoeken(string titel)
+    public async Task<IEnumerable<BoekListItem>> ZoekBoekenAsync(string titel)
     {
-        return boeken2025Context
+        return await boeken2025Context
             .Boeken
-            .Where(b => b.Titel.ToLower().Contains(titel.ToLower()))
+            .Where(b => b.Titel.Contains(titel, StringComparison.CurrentCultureIgnoreCase))
             .Select(b => new BoekListItem()
             {
                 ID = b.Id,
                 Titel = b.Titel,
                 Schrijver = b.Schrijver.Naam
-            }).ToList();
+            }).ToListAsync();
     }
 
-    public FullBoek? GeefBoek(int id)
+    public async Task<FullBoek?> GeefBoek(int id)
     {
-        Boek? boek = boeken2025Context.Boeken.Include(b => b.Schrijver).SingleOrDefault(n => n.Id == id);
+        Boek? boek = await boeken2025Context.Boeken.Include(b => b.Schrijver).SingleOrDefaultAsync(n => n.Id == id);
         return MapBoek(boek);
     }
 
-    public int CreateBoek(CreateBoek boek)
+    public async Task<int> CreateBoekAsync(CreateBoek boek)
     {
-        if (!boeken2025Context.Schrijvers.Any(b => b.Id == boek.SchrijverId))
+        if (!await boeken2025Context.Schrijvers.AnyAsync(b => b.Id == boek.SchrijverId))
         {
             throw new Exception("Not a correct SchrijverId");
         }
@@ -62,25 +62,25 @@ public class BoekenRepository : IBoekenRepository
             SchrijverId = boek.SchrijverId
         };
 
-        boeken2025Context.Boeken.Add(boekEnt);
+        await boeken2025Context.Boeken.AddAsync(boekEnt);
 
-        boeken2025Context.SaveChanges();
+        await boeken2025Context.SaveChangesAsync();
         return boekEnt.Id;
     }
 
-    public void UpdateBoek(int id, UpdateBoek boek)
+    public async Task UpdateBoekAsync(int id, UpdateBoek boek)
     {
         if (id != boek.Id)
         {
             throw new ValidationException("Ids are not corresponding");
         }
 
-        if (!boeken2025Context.Schrijvers.Any(n => n.Id == boek.SchrijverId))
+        if (!await boeken2025Context.Schrijvers.AnyAsync(n => n.Id == boek.SchrijverId))
         {
             throw new Exception("Not a correct SchrijverId");
         }
 
-        Boek? boekEnt = boeken2025Context.Boeken.SingleOrDefault(n => n.Id == id);
+        Boek? boekEnt = await boeken2025Context.Boeken.SingleOrDefaultAsync(n => n.Id == id);
 
         if (boekEnt == null)
         {
@@ -88,16 +88,16 @@ public class BoekenRepository : IBoekenRepository
         }
         MapBoek(boekEnt, boek);
 
-        boeken2025Context.SaveChanges();
+        await boeken2025Context.SaveChangesAsync();
     }
 
-    public void DeleteBoek(int id)
+    public async Task DeleteBoekAsync(int id)
     {
-        var boek = boeken2025Context.Boeken.Find(id);
+        var boek = await boeken2025Context.Boeken.FindAsync(id);
         if (boek == null)
             throw new Exception("No Boek found");
         boeken2025Context.Boeken.Remove(boek);
-        boeken2025Context.SaveChanges();
+        await boeken2025Context.SaveChangesAsync();
     }
 
     private static void MapBoek(Boek boekEnt, UpdateBoek boek)

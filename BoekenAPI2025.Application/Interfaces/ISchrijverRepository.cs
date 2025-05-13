@@ -4,8 +4,8 @@ namespace BoekenAPI2025.Application.Interfaces;
 
 public interface ISchrijverRepository
 {
-    int MaakSchrijver(CreateSchrijver schrijver);
-    IEnumerable<SchrijverItem> GeefAlleSchrijvers();
-    IEnumerable<SchrijverItem> ZoekSchrijvers(string naam);
-    SchrijverDTO? GeefSchrijverById(int id);
+    Task<int> MaakSchrijverAsync(CreateSchrijver schrijver);
+    Task<IEnumerable<SchrijverItem>> GeefAlleSchrijversAsync();
+    Task<IEnumerable<SchrijverItem>> ZoekSchrijversAsync(string naam);
+    Task<SchrijverDTO?> GeefSchrijverByIdAsync(int id);
 }

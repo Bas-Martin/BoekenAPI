@@ -10,41 +10,41 @@ public class SchrijverRepository(Boeken2025Context boeken2025Context) : ISchrijv
 {
     private readonly Boeken2025Context boeken2025Context = boeken2025Context;
 
-    public int MaakSchrijver(CreateSchrijver schrijver)
+    public async Task<int> MaakSchrijverAsync(CreateSchrijver schrijver)
     {
         var schrijverEntity = new Schrijver()
         {
             Naam = schrijver.Naam
         };
-        boeken2025Context.Schrijvers.Add(schrijverEntity);
-        boeken2025Context.SaveChanges();
+        await boeken2025Context.Schrijvers.AddAsync(schrijverEntity);
+        await boeken2025Context.SaveChangesAsync();
         return schrijverEntity.Id;
     }
 
-    public IEnumerable<SchrijverItem> GeefAlleSchrijvers()
+    public async Task<IEnumerable<SchrijverItem>> GeefAlleSchrijversAsync()
     {
-        return boeken2025Context.Schrijvers.Select(
+        return await boeken2025Context.Schrijvers.Select(
             n => new SchrijverItem()
             {
                 Id = n.Id,
                 Naam = n.Naam
-            });
+            }).ToListAsync();
     }
 
-    public IEnumerable<SchrijverItem> ZoekSchrijvers(string naam)
+    public async Task<IEnumerable<SchrijverItem>> ZoekSchrijversAsync(string naam)
     {
-        return boeken2025Context.Schrijvers.Where(
-            n => n.Naam.ToLower().Contains(naam.ToLower()))
+        return await boeken2025Context.Schrijvers.Where(
+            n => n.Naam.Contains(naam, StringComparison.InvariantCultureIgnoreCase))
             .Select(n => new SchrijverItem()
             {
                 Id = n.Id,
                 Naam = n.Naam
-            });
+            }).ToListAsync();
     }
 
-    public SchrijverDTO? GeefSchrijverById(int id)
+    public async Task<SchrijverDTO?> GeefSchrijverByIdAsync(int id)
     {
-        return MapSchrijver(boeken2025Context.Schrijvers.Include(n => n.Boeken).SingleOrDefault(n => n.Id == id));
+        return MapSchrijver(await boeken2025Context.Schrijvers.Include(n => n.Boeken).SingleOrDefaultAsync(n => n.Id == id));
     }
 
     private SchrijverDTO? MapSchrijver(Schrijver? schrijver)
