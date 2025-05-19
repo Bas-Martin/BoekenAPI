@@ -1,0 +1,26 @@
+﻿@page "/boeken"
+
+<h1>Boeken overzicht</h1>
+<p>Hieronder vind je een overzicht van alle boeken in de database</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titel</th>
+            <th>Schrijver</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var boek in boeken)
+        {
+            <tr @onclick="@(_ => BoekBewerken(boek.ID))">
+                <td>@boek.ID</td>
+                <td>@boek.Titel</td>
+                <td>@boek.Schrijver</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button @onclick="BoekAanmaken">Boek aanmaken</button>

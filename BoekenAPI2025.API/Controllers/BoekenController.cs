@@ -68,7 +68,7 @@ public class BoekenController : ControllerBase
         }
     }
 
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteBoek(int id)
     {
         try
