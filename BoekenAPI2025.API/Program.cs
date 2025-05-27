@@ -1,5 +1,6 @@
-
-using BoekenAPI2025.API.Repositories;
+using BoekenAPI2025.Application.Interfaces;
+using BoekenAPI2025.Application.Repositories;
+using BoekenAPI2025.Application.Services;
 using BoekenAPI2025.Domain;
 
 namespace BoekenAPI2025.API
@@ -13,8 +14,12 @@ namespace BoekenAPI2025.API
 
             // Add services to the container.
             ServicesConfiguration.RegisterServices(builder.Services, builder.Configuration.GetConnectionString("DefaultConnection"));
-            builder.Services.AddScoped<BoekenRepository>();
-            builder.Services.AddScoped<SchrijverRepository>();
+
+            builder.Services.AddScoped<IBoekenService, BoekenService>();
+            builder.Services.AddScoped<ISchrijverService, SchrijverService>();
+
+            builder.Services.AddScoped<IBoekenRepository, BoekenRepository>();
+            builder.Services.AddScoped<ISchrijverRepository, SchrijverRepository>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

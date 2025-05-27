@@ -1,0 +1,9 @@
+﻿@page "/schrijvers/aanmaken"
+
+<h1>Maak een schrijver aan</h1>
+
+<form @onsubmit="Submit">
+    <label for="Titel">Naam: </label><input type="text" id="titel" @bind="schrijver.Naam" placeholder="Naam van de schrijver" required />
+    <br />
+    <button type="submit">Aanmaken</button>
+</form>

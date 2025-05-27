@@ -1,84 +1,84 @@
-﻿using BoekenAPI2025.API.Repositories;
-using BoekenAPI2025.Application.DTO.Boeken;
+﻿using BoekenAPI2025.Application.Interfaces;
+using BoekenAPI2025.Shared.DTO.Boeken;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace BoekenAPI2025.API.Controllers
+namespace BoekenAPI2025.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class BoekenController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BoekenController : ControllerBase
+    private readonly IBoekenService boekenService;
+
+    public BoekenController(IBoekenService boekenService)
     {
-        private readonly BoekenRepository boekenRepository;
+        this.boekenService = boekenService;
+    }
 
-        public BoekenController(BoekenRepository boekenRepository)
+    [HttpGet]
+    public async Task<IActionResult> GeefBoeken()
+    {
+        return Ok(await boekenService.GeefAlleBoekenAsync());
+    }
+
+    [HttpGet("search/{titel}")]
+    public async Task<IActionResult> ZoekBoeken(string titel)
+    {
+        return Ok(await boekenService.ZoekBoekenAsync(titel));
+    }
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GeefBoek(int id)
+    {
+        FullBoek? retVal = await boekenService.GeefBoekAsync(id);
+        return retVal != null ? Ok(retVal) : NotFound();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> MaakBoek(CreateBoek boek)
+    {
+        try
         {
-            this.boekenRepository = boekenRepository;
+            var id = await boekenService.CreateBoekAsync(boek);
+
+            return Ok(id);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<BoekListItem>> GeefBoeken()
-        {
-            return Ok(boekenRepository.GeefAlleBoeken());
-        }
-        [HttpGet("search/{titel}")]
-        public ActionResult<IEnumerable<BoekListItem>> ZoekBoeken(string titel)
-        {
-            return Ok(boekenRepository.ZoekBoeken(titel));
-        }
-        [HttpGet("{id}")]
-        public ActionResult<FullBoek> GeefBoek(int id)
-        {
-            FullBoek? retVal = boekenRepository.GeefBoek(id);
-            return retVal != null ? Ok(retVal) : NotFound();
-        }
+    }
 
-        [HttpPost]
-        public ActionResult<int> MaakBoek(CreateBoek boek)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateBoek(int id, UpdateBoek boek)
+    {
+        try
         {
-            try
-            {
-                var id = boekenRepository.CreateBoek(boek);
-
-                return id;
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            await boekenService.UpdateBoekAsync(id, boek);
+            return Ok();
         }
-
-        [HttpPut("{id}")]
-        public ActionResult UpdateBoek(int id, UpdateBoek boek)
+        catch (ValidationException ex)
         {
-            try
-            {
-                boekenRepository.UpdateBoek(id, boek);
-                return Ok();
-            }
-            catch (ValidationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest(ex.Message);
         }
-
-        [HttpDelete("id")]
-        public ActionResult DeleteBoek(int id)
+        catch (Exception ex)
         {
-            try
-            {
-                boekenRepository.DeleteBoek(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteBoek(int id)
+    {
+        try
+        {
+            await boekenService.DeleteBoekAsync(id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿@page "/boeken/aanmaken"
+
+<h1>Maak een boek aan</h1>
+
+<form @onsubmit="Submit">
+    <label for="Titel">Titel: </label><input type="text" id="titel" @bind="boek.Titel" placeholder="Titel van het boek" required />
+    <br />
+    <label for="Schrijver">Schrijver: </label>
+    <select id="schrijver" name="schrijver" @bind="boek.SchrijverId">
+        @foreach (var schrijver in schrijvers)
+        {
+            <option value="@schrijver.Id">@schrijver.Naam</option>
+        }
+    </select>
+    <br />
+    <label for="Publicatiejaar">Publicatiejaar: </label><input type="number" id="publicatiejaar" @bind="boek.Publicatiejaar" placeholder="Publicatiejaar" required />
+    <br />
+    <label for="AantalBladzijden">Aantal bladzijden: </label><input type="number" id="aantalbladzijden" @bind="boek.AantalBladzijden" placeholder="Aantal bladzijden" required />
+    <br />
+    <button type="submit">Aanmaken</button>
+</form>

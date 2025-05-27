@@ -1,5 +1,5 @@
-﻿using BoekenAPI2025.Application.DTO.Boeken;
-using BoekenAPI2025.Application.DTO.Schrijvers;
+﻿using BoekenAPI2025.Shared.DTO.Boeken;
+using BoekenAPI2025.Shared.DTO.Schrijvers;
 using System.Net.Http.Json;
 
 namespace BoekenAPI2025.Client

@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BoekenAPI2025.Application\BoekenAPI2025.Application.csproj" />
-    <ProjectReference Include="..\BoekenAPI2025.Domain\BoekenAPI2025.Domain.csproj" />
+    <ProjectReference Include="..\BoekenAPI2025.Shared\BoekenAPI2025.Shared.csproj" />
   </ItemGroup>
 
 </Project>

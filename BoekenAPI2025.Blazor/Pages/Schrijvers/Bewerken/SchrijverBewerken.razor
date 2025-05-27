@@ -1,0 +1,25 @@
+﻿@page "/schrijvers/bewerken/{id:int}"
+
+<h1>Schrijver bewerken</h1>
+
+@if (schrijver != null)
+{
+    <form>
+        <label for="Titel">Naam: </label><input type="text" id="titel" @bind="schrijver.Naam" placeholder="Naam van de schrijver" required />
+        <br />
+
+        <h4>Boeken van deze schrijver:</h4>
+        <ul>
+            @if (schrijver.Boeken != null)
+            {
+                foreach (var boek in schrijver.Boeken)
+                {
+                    <li @onclick="@(_ => GaNaarBoek(boek.Id))">@boek.Titel</li>
+                }
+            }
+        </ul>
+    </form>
+
+}
+<br />
+<button class="mt-3" @onclick="Cancel">Terug naar overzicht</button>

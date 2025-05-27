@@ -1,0 +1,24 @@
+﻿@page "/schrijvers"
+
+<h1>Schrijvers overzicht</h1>
+<p>Hieronder vind je een overzicht van alle schrijvers in de database</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Naam</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var schrijver in schrijvers)
+        {
+            <tr @onclick="@(_ => SchrijverBewerken(schrijver.Id))">
+                <td>@schrijver.Id</td>
+                <td>@schrijver.Naam</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button @onclick="SchrijverAanmaken">Schrijver aanmaken</button>
