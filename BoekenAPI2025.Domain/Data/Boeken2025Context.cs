@@ -9,6 +9,7 @@ namespace BoekenAPI2025.Domain.Data
 
         public DbSet<Schrijver> Schrijvers { get; set; }
         public DbSet<Boek> Boeken { get; set; }
+        public DbSet<Bibliotheek> Bibliotheken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
